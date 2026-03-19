@@ -11,6 +11,7 @@ const NAV = [
     { href: '/admin/schedule', icon: Calendar, label: 'Clinical Schedule' },
     { href: '/admin/patients', icon: Users, label: 'Patient Registry' },
     { href: '/admin/billing', icon: Receipt, label: 'Account Statement' },
+    { href: '/admin/services', icon: Sparkles, label: 'Service Catalog' },
     { href: '/admin/reports', icon: BarChart3, label: 'Performance' },
 ]
 

@@ -78,7 +78,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                         <div className="space-y-1">
                             {[
                                 { id: 'dashboard', label: 'Overview', icon: LayoutDashboard, href: '/portal/dashboard' },
-                                { id: 'appointments', label: 'Book Appointment', icon: Calendar, href: '/book' },
+                                { id: 'appointments', label: 'Book Appointment', icon: Calendar, href: '/portal/book' },
                                 { id: 'history', label: 'Medical Records', icon: History, href: '/portal/records' },
                             ].map((item) => {
                                 const isActive = pathname === item.href
@@ -183,7 +183,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                 <div className="lg:hidden fixed bottom-6 left-6 right-6 h-16 bg-navy/95 backdrop-blur-xl rounded-2xl px-6 flex justify-between items-center z-[70] shadow-2xl border border-white/10">
                     {[
                         { icon: LayoutDashboard, href: '/portal/dashboard' },
-                        { icon: Calendar, href: '/book' },
+                        { icon: Calendar, href: '/portal/book' },
                         { icon: CreditCard, href: '/portal/billing' },
                         { icon: User, href: '/portal/profile' },
                     ].map((item, i) => {

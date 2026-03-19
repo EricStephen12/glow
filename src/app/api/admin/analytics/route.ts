@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
                 include: { service: true }
             })
 
-            const total = appointments.reduce((sum, app) => sum + (app.service?.price || 0), 0)
+            const total = appointments.reduce((sum, app) => sum + (Number(app.service?.price) || 0), 0)
             revenueData.push({
                 name: format(date, 'MMM'),
                 value: total

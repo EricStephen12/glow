@@ -147,11 +147,11 @@ export default function PortalDashboardPage() {
                             <div className="flex gap-3">
                                 {nextAppointment ? (
                                     <>
-                                        <button onClick={() => router.push(`/book?reschedule=${nextAppointment.id}`)} className="px-8 py-4 bg-navy text-white text-[9px] font-bold rounded-2xl uppercase tracking-[0.2em] shadow-lg hover:bg-lavender transition-all">Reschedule</button>
+                                        <button onClick={() => router.push(`/portal/book?reschedule=${nextAppointment.id}`)} className="px-8 py-4 bg-navy text-white text-[9px] font-bold rounded-2xl uppercase tracking-[0.2em] shadow-lg hover:bg-lavender transition-all">Reschedule</button>
                                         <button onClick={handleCancel} disabled={cancelling} className="px-6 py-4 border border-navy/5 text-[9px] font-bold text-navy/30 rounded-2xl uppercase tracking-[0.2em] hover:bg-red-50 hover:text-red-500 transition-all">{cancelling ? '...' : 'Cancel'}</button>
                                     </>
                                 ) : (
-                                    <Link href="/book" className="px-10 py-5 bg-navy text-white text-[10px] font-bold rounded-2xl uppercase tracking-[0.3em] shadow-xl hover:bg-lavender transition-all hover:scale-105 active:scale-95">Book New Visit</Link>
+                                    <Link href="/portal/book" className="px-10 py-5 bg-navy text-white text-[10px] font-bold rounded-2xl uppercase tracking-[0.3em] shadow-xl hover:bg-lavender transition-all hover:scale-105 active:scale-95">Book New Visit</Link>
                                 )}
                             </div>
                         </div>
@@ -161,28 +161,28 @@ export default function PortalDashboardPage() {
 
                     {/* Stats Row */}
                     <div className="grid md:grid-cols-2 gap-8">
-                        <div className="dash-reveal bg-white rounded-[32px] p-8 border border-navy/5 shadow-sm hover:shadow-lg transition-all">
+                        <Link href="/portal/billing" className="dash-reveal bg-white rounded-[32px] p-8 border border-navy/5 shadow-sm hover:shadow-lg hover:border-lavender/20 transition-all group block">
                             <div className="flex items-center gap-6">
-                                <div className="w-14 h-14 rounded-2xl bg-lavender/10 flex items-center justify-center">
+                                <div className="w-14 h-14 rounded-2xl bg-lavender/10 flex items-center justify-center group-hover:scale-110 transition-transform">
                                     <CreditCard className="w-6 h-6 text-lavender" />
                                 </div>
                                 <div>
-                                    <p className="text-[9px] text-navy/30 font-bold uppercase tracking-[0.3em] mb-1">Account Balance</p>
+                                    <p className="text-[9px] text-navy/30 font-bold uppercase tracking-[0.3em] mb-1 group-hover:text-lavender transition-colors">Account Balance</p>
                                     <h3 className={`text-2xl font-bold font-display ${balance > 0 ? 'text-red-500' : 'text-navy'}`}>{formatCurrency(balance)}</h3>
                                 </div>
                             </div>
-                        </div>
-                        <div className="dash-reveal bg-white rounded-[32px] p-8 border border-navy/5 shadow-sm hover:shadow-lg transition-all">
+                        </Link>
+                        <Link href="/portal/records" className="dash-reveal bg-white rounded-[32px] p-8 border border-navy/5 shadow-sm hover:shadow-lg hover:border-lavender/20 transition-all group block">
                             <div className="flex items-center gap-6">
-                                <div className="w-14 h-14 rounded-2xl bg-navy/5 flex items-center justify-center">
-                                    <History className="w-6 h-6 text-navy/20" />
+                                <div className="w-14 h-14 rounded-2xl bg-navy/5 flex items-center justify-center group-hover:scale-110 group-hover:bg-lavender/10 transition-all">
+                                    <History className="w-6 h-6 text-navy/20 group-hover:text-lavender transition-colors" />
                                 </div>
                                 <div>
-                                    <p className="text-[9px] text-navy/30 font-bold uppercase tracking-[0.3em] mb-1">Clinic Records</p>
+                                    <p className="text-[9px] text-navy/30 font-bold uppercase tracking-[0.3em] mb-1 group-hover:text-lavender transition-colors">Clinic Records</p>
                                     <h3 className="text-2xl font-bold font-display text-navy">{recentVisits.length} Treatments</h3>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     </div>
 
                     {/* Recent History Table Style */}

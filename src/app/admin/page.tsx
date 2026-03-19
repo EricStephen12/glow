@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion'
 import {
     Users, Calendar, CreditCard, TrendingUp,
-    Clock, ArrowUpRight, CheckCircle2, AlertCircle, ChevronRight, Activity, Zap
+    Clock, ArrowUpRight, CheckCircle2, AlertCircle, ChevronRight, Activity, Zap, Sparkles
 } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { format } from 'date-fns'

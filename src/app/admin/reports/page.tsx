@@ -98,7 +98,7 @@ export default function AdminReportsPage() {
                     </div>
                     <div className="h-80 w-full">
                         <ResponsiveContainer width="100%" height="100%">
-                            <AreaChart data={REVENUE_DATA}>
+                            <AreaChart data={revenueData}>
                                 <defs>
                                     <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
                                         <stop offset="5%" stopColor="#6B1D2A" stopOpacity={0.1} />
@@ -128,7 +128,7 @@ export default function AdminReportsPage() {
                     </div>
                     <div className="h-80 w-full">
                         <ResponsiveContainer width="100%" height="100%">
-                            <BarChart data={APPOINTMENTS_DATA}>
+                            <BarChart data={appointmentData}>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                                 <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#94a3b8' }} />
                                 <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#94a3b8' }} />
@@ -152,13 +152,13 @@ export default function AdminReportsPage() {
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
                                     <Pie
-                                        data={SERVICES_DATA}
+                                        data={servicesData}
                                         innerRadius={60}
                                         outerRadius={80}
                                         paddingAngle={5}
                                         dataKey="value"
                                     >
-                                        {SERVICES_DATA.map((entry, index) => (
+                                        {servicesData.map((entry: any, index: number) => (
                                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                         ))}
                                     </Pie>
@@ -169,7 +169,7 @@ export default function AdminReportsPage() {
                             </ResponsiveContainer>
                         </div>
                         <div className="mt-4 space-y-3">
-                            {SERVICES_DATA.map((s, i) => (
+                            {servicesData.map((s: any, i: number) => (
                                 <div key={s.name} className="flex items-center justify-between text-xs">
                                     <div className="flex items-center gap-2 text-gray-600">
                                         <div className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS[i] }} />
