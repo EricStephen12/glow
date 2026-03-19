@@ -1,0 +1,298 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ─── Auth ───────────────────────────────────────────────────────────────────
+
+model AdminUser {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      AdminRole @default(RECEPTIONIST)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum AdminRole {
+  SUPER_ADMIN
+  DENTIST
+  RECEPTIONIST
+}
+
+// ─── Services ────────────────────────────────────────────────────────────────
+
+model Service {
+  id           String   @id @default(cuid())
+  name         String
+  description  String
+  duration     Int      // in minutes
+  price        Decimal  @db.Decimal(10, 2)
+  category     String
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  appointments Appointment[]
+  procedures   Procedure[]
+}
+
+// ─── Patients ────────────────────────────────────────────────────────────────
+
+model Patient {
+  id                String             @id @default(cuid())
+  name              String
+  phone             String?            @unique
+  email             String             @unique
+  password          String?            // Added for simplified login
+  dob               DateTime?
+  gender            String?
+  address           String?
+  allergies         String?
+  medicalNotes      String?
+  bloodGroup        String?
+  emergencyContact  String?
+  otpCode           String?
+  otpExpiresAt      DateTime?
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  appointments      Appointment[]
+  dentalChart       DentalChart?
+  treatmentPlans    TreatmentPlan[]
+  invoices          Invoice[]
+  attachments       Attachment[]
+  followUps         FollowUpReminder[]
+  visitRecords      VisitRecord[]
+}
+
+// ─── Appointments ─────────────────────────────────────────────────────────────
+
+model Appointment {
+  id          String            @id @default(cuid())
+  patientId   String
+  patient     Patient           @relation(fields: [patientId], references: [id])
+  serviceId   String
+  service     Service           @relation(fields: [serviceId], references: [id])
+  date        DateTime
+  duration    Int               @default(30)
+  status      AppointmentStatus @default(PENDING)
+  notes       String?
+  dentistName String?
+  reminderSent Boolean          @default(false)
+  confirmed   Boolean           @default(false)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  reminders   Reminder[]
+  visitRecord VisitRecord?
+  invoice     Invoice?
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  NO_SHOW
+  CANCELLED
+  RESCHEDULED
+}
+
+model Waitlist {
+  id        String   @id @default(cuid())
+  patientId String
+  serviceId String
+  date      DateTime
+  notified  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Reminder {
+  id            String      @id @default(cuid())
+  appointmentId String
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+  type          ReminderType
+  sentAt        DateTime?
+  status        String      @default("PENDING")
+  createdAt     DateTime    @default(now())
+}
+
+enum ReminderType {
+  SMS
+  WHATSAPP
+  EMAIL
+}
+
+// ─── Visit Records ────────────────────────────────────────────────────────────
+
+model VisitRecord {
+  id            String      @id @default(cuid())
+  patientId     String
+  patient       Patient     @relation(fields: [patientId], references: [id])
+  appointmentId String      @unique
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+  chiefComplaint String?
+  diagnosis     String?
+  treatmentDone String?
+  medicationGiven String?
+  notes         String?
+  nextVisitDate DateTime?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+// ─── Attachments (Cloudinary) ─────────────────────────────────────────────────
+
+model Attachment {
+  id            String   @id @default(cuid())
+  patientId     String
+  patient       Patient  @relation(fields: [patientId], references: [id])
+  publicId      String   // Cloudinary public_id
+  url           String   // Cloudinary secure_url
+  type          String   // xray | photo | document
+  label         String?
+  createdAt     DateTime @default(now())
+}
+
+// ─── Dental Chart ─────────────────────────────────────────────────────────────
+
+model DentalChart {
+  id        String   @id @default(cuid())
+  patientId String   @unique
+  patient   Patient  @relation(fields: [patientId], references: [id])
+  teeth     Tooth[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Tooth {
+  id          String             @id @default(cuid())
+  chartId     String
+  chart       DentalChart        @relation(fields: [chartId], references: [id])
+  toothNumber Int                // 1–32 (Universal Numbering)
+  conditions  ToothConditionLog[]
+
+  @@unique([chartId, toothNumber])
+}
+
+model ToothConditionLog {
+  id        String   @id @default(cuid())
+  toothId   String
+  tooth     Tooth    @relation(fields: [toothId], references: [id])
+  condition String   // healthy | cavity | filling | crown | missing | implant | root_canal | bridge | veneer | extraction | other
+  surface   String?  // mesial | distal | buccal | lingual | occlusal
+  note      String?
+  visitDate DateTime @default(now())
+  createdAt DateTime @default(now())
+}
+
+// ─── Treatment Plans ──────────────────────────────────────────────────────────
+
+model TreatmentPlan {
+  id          String      @id @default(cuid())
+  patientId   String
+  patient     Patient     @relation(fields: [patientId], references: [id])
+  title       String
+  notes       String?
+  status      PlanStatus  @default(ACTIVE)
+  procedures  Procedure[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+enum PlanStatus {
+  ACTIVE
+  COMPLETED
+  ON_HOLD
+  CANCELLED
+}
+
+model Procedure {
+  id              String          @id @default(cuid())
+  treatmentPlanId String
+  treatmentPlan   TreatmentPlan   @relation(fields: [treatmentPlanId], references: [id])
+  serviceId       String?
+  service         Service?        @relation(fields: [serviceId], references: [id])
+  name            String
+  description     String?
+  toothNumbers    String?         // comma-separated tooth numbers
+  status          ProcedureStatus @default(PENDING)
+  scheduledDate   DateTime?
+  completedDate   DateTime?
+  cost            Decimal?        @db.Decimal(10, 2)
+  order           Int             @default(0)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+}
+
+enum ProcedureStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+// ─── Follow-up Reminders ──────────────────────────────────────────────────────
+
+model FollowUpReminder {
+  id            String   @id @default(cuid())
+  patientId     String
+  patient       Patient  @relation(fields: [patientId], references: [id])
+  reminderDate  DateTime
+  message       String?
+  sent          Boolean  @default(false)
+  sentAt        DateTime?
+  createdAt     DateTime @default(now())
+}
+
+// ─── Billing / Invoices ───────────────────────────────────────────────────────
+
+model Invoice {
+  id            String        @id @default(cuid())
+  invoiceNumber String        @unique
+  patientId     String
+  patient       Patient       @relation(fields: [patientId], references: [id])
+  appointmentId String?       @unique
+  appointment   Appointment?  @relation(fields: [appointmentId], references: [id])
+  items         InvoiceItem[]
+  subtotal      Decimal       @db.Decimal(10, 2)
+  discount      Decimal       @default(0) @db.Decimal(10, 2)
+  tax           Decimal       @default(0) @db.Decimal(10, 2)
+  total         Decimal       @db.Decimal(10, 2)
+  amountPaid    Decimal       @default(0) @db.Decimal(10, 2)
+  status        PaymentStatus @default(UNPAID)
+  paymentMethod PaymentMethod?
+  notes         String?
+  dueDate       DateTime?
+  paidAt        DateTime?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model InvoiceItem {
+  id          String  @id @default(cuid())
+  invoiceId   String
+  invoice     Invoice @relation(fields: [invoiceId], references: [id])
+  description String
+  quantity    Int     @default(1)
+  unitPrice   Decimal @db.Decimal(10, 2)
+  total       Decimal @db.Decimal(10, 2)
+}
+
+enum PaymentStatus {
+  UNPAID
+  PART_PAID
+  PAID
+  REFUNDED
+}
+
+enum PaymentMethod {
+  CASH
+  TRANSFER
+  POS
+  INSURANCE
+}
+ 
