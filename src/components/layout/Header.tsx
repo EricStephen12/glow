@@ -38,7 +38,7 @@ export default function Header() {
                     <div className="w-10 h-10 rounded-xl bg-navy flex items-center justify-center">
                         <span className="font-bold text-xl text-white">G</span>
                     </div>
-                    <div className="hidden sm:block">
+                    <div className="block">
                         <p className="font-bold text-lg leading-none text-navy uppercase tracking-tighter">Glow Dental</p>
                         <p className="text-[8px] tracking-[0.3em] uppercase font-bold text-lavender mt-0.5">Trust. Care. Results.</p>
                     </div>
