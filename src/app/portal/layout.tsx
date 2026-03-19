@@ -79,7 +79,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                             {[
                                 { id: 'dashboard', label: 'Overview', icon: LayoutDashboard, href: '/portal/dashboard' },
                                 { id: 'appointments', label: 'Book Appointment', icon: Calendar, href: '/book' },
-                                { id: 'history', label: 'Medical Records', icon: History, href: '/portal/dashboard' },
+                                { id: 'history', label: 'Medical Records', icon: History, href: '/portal/records' },
                             ].map((item) => {
                                 const isActive = pathname === item.href
                                 return (
@@ -103,7 +103,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                         <p className="px-4 text-[9px] font-bold text-white/20 uppercase tracking-[0.3em] mb-4">Account</p>
                         <div className="space-y-1">
                             {[
-                                { id: 'billing', label: 'Billing & Quotes', icon: CreditCard, href: '/portal/dashboard' },
+                                { id: 'billing', label: 'Billing & Quotes', icon: CreditCard, href: '/portal/billing' },
                                 { id: 'profile', label: 'Profile Settings', icon: User, href: '/portal/profile' },
                             ].map((item) => {
                                 const isActive = pathname === item.href
@@ -184,7 +184,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
                     {[
                         { icon: LayoutDashboard, href: '/portal/dashboard' },
                         { icon: Calendar, href: '/book' },
-                        { icon: CreditCard, href: '/portal/dashboard' },
+                        { icon: CreditCard, href: '/portal/billing' },
                         { icon: User, href: '/portal/profile' },
                     ].map((item, i) => {
                         const isActive = pathname === item.href
