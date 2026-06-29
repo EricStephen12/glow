@@ -1,10 +1,35 @@
 'use client'
+import { useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Sparkles, Shield, Zap, Heart, ArrowRight, ChevronRight, Star } from 'lucide-react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+
+if (typeof window !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger)
+}
 
 export default function ServicesPage() {
+    const mainRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        const bgTexts = gsap.utils.toArray('.editorial-bg-text')
+        bgTexts.forEach((text: any) => {
+            gsap.to(text, {
+                yPercent: -45,
+                opacity: 0,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: text,
+                    start: 'top 70%',
+                    end: 'bottom 10%',
+                    scrub: 1.2
+                }
+            })
+        })
+    }, [])
     const treatments = [
         {
             category: 'Preventive Care',
@@ -33,16 +58,29 @@ export default function ServicesPage() {
     ]
 
     return (
-        <div className="pt-24 bg-surface selection:bg-lavender/20">
+        <div ref={mainRef} className="relative pt-24 bg-transparent selection:bg-lavender/20">
+            {/* Editorial Background Parallax Watermarks */}
+            <div className="absolute top-[75vh] left-0 w-full overflow-hidden pointer-events-none z-0 select-none">
+                <span className="editorial-bg-text text-[22vw] font-display font-black text-lavender/[0.07] uppercase tracking-[0.1em] block text-center leading-none">
+                    CLINICAL
+                </span>
+            </div>
+
+            <div className="absolute top-[160vh] left-0 w-full overflow-hidden pointer-events-none z-0 select-none">
+                <span className="editorial-bg-text text-[18vw] font-display font-light italic text-lavender/[0.08] uppercase tracking-[0.05em] block text-center leading-none">
+                    Technology
+                </span>
+            </div>
+
             {/* Hero */}
             <section className="bg-navy py-24 md:py-32 relative overflow-hidden text-center">
                 <div className="max-w-4xl mx-auto px-6 relative z-10">
                     <p className="text-lavender text-[10px] font-bold tracking-[0.4em] uppercase mb-6">Our Services</p>
                     <h1 className="text-5xl md:text-7xl font-medium text-white mb-8 font-display italic">
-                        Expert Dental <span className="text-lavender">Treatments</span>
+                        Our <span className="text-lavender">Treatments</span>
                     </h1>
-                    <p className="text-white/40 max-w-2xl mx-auto text-xl leading-relaxed font-medium">
-                        Professional dental care for every need. From routine checkups to complex restorations.
+                    <p className="text-white/60 max-w-2xl mx-auto text-xl leading-relaxed font-medium">
+                        From routine cleanings to complex surgical restorations, we focus on patient comfort and long-term health.
                     </p>
                 </div>
                 <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-lavender/5 rounded-full blur-[100px]" />
@@ -91,7 +129,7 @@ export default function ServicesPage() {
             </section>
 
             {/* High-end Tech Highlight */}
-            <section className="py-24 bg-white">
+            <section className="py-24 bg-transparent">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="bg-navy rounded-[60px] p-10 md:p-24 text-white relative overflow-hidden">
                         <div className="grid lg:grid-cols-2 gap-20 items-center relative z-10">
@@ -100,9 +138,9 @@ export default function ServicesPage() {
                                 <h2 className="text-4xl md:text-6xl font-medium mb-10 font-display italic leading-tight">Advanced <span className="text-lavender">Diagnostic</span> Suite</h2>
                                 <div className="space-y-8">
                                     {[
-                                        { title: 'Intraoral 3D Scanning', desc: 'Zero messy impressions. Absolute precision digital models.' },
-                                        { title: 'Painless Laser Tech', desc: 'Soft-tissue procedures with faster healing times and minimal discomfort.' },
-                                        { title: 'AI Diagnostics', desc: 'Enhanced radiographic analysis for early-stage detection.' },
+                                        { title: 'Digital 3D Scanning', desc: 'No messy impressions. We capture highly accurate digital scans in seconds.' },
+                                        { title: 'Laser Treatments', desc: 'Faster healing times and less discomfort for gum treatments.' },
+                                        { title: 'Enhanced Imaging', desc: 'High-resolution diagnostics to spot potential issues early.' },
                                     ].map((tech) => (
                                         <div key={tech.title} className="flex gap-6 group">
                                             <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-lavender transition-colors flex-shrink-0">
@@ -129,8 +167,8 @@ export default function ServicesPage() {
             {/* CTA */}
             <section className="py-24 md:py-32 text-center pb-40">
                 <div className="max-w-3xl mx-auto px-6">
-                    <h2 className="text-4xl md:text-5xl font-medium text-navy mb-8 font-display">Experience <span className="text-lavender italic">Better Care</span></h2>
-                    <p className="text-navy/40 text-lg mb-12 font-medium">Ready to transform your oral health? Book your personalized consultation with our doctors today.</p>
+                    <h2 className="text-4xl md:text-5xl font-medium text-navy mb-8 font-display">Talk to a <span className="text-lavender italic">Dentist</span></h2>
+                    <p className="text-navy/40 text-lg mb-12 font-medium">Ready to schedule a visit? Book a time to meet with our clinical team.</p>
                     <div className="flex flex-col sm:flex-row justify-center gap-6">
                         <Link href="/book" className="btn-pill-lavender px-12 py-5 text-sm">Book Appointment</Link>
                         <Link href="/portal/login" className="px-12 py-5 text-sm border border-navy/10 rounded-full font-bold uppercase tracking-widest text-navy hover:bg-navy/5 transition-all">Client Portal</Link>

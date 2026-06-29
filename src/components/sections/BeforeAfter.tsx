@@ -12,21 +12,21 @@ const RESULTS = [
         category: 'Cosmetic',
         image: '/images/smile-portrait.png',
         before: 'Misaligned',
-        after: 'Radiant'
+        after: 'Perfectly Straight'
     },
     {
         title: 'Rehabilitation',
         category: 'Restorative',
         image: '/images/hero-patient-black.png',
-        before: 'Wear',
-        after: 'Restored'
+        before: 'Damaged',
+        after: 'Fully Restored'
     },
     {
         title: 'Whitening',
         category: 'Esthetic',
         image: '/images/black-woman-hero.png',
-        before: 'Discolored',
-        after: 'Glow'
+        before: 'Stained',
+        after: 'Clean & White'
     }
 ]
 
@@ -104,16 +104,16 @@ export default function BeforeAfter() {
     }, [])
 
     return (
-        <section ref={sectionRef} className="py-24 md:py-32 bg-white overflow-hidden">
+        <section ref={sectionRef} className="py-24 md:py-32 bg-transparent overflow-hidden border-t border-navy/5">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="ba-header text-center max-w-2xl mx-auto mb-20">
-                    <p className="ba-title text-lavender text-[10px] font-bold tracking-[0.3em] uppercase mb-4">Seeing is Believing</p>
+                    <p className="ba-title text-lavender text-[10px] font-bold tracking-[0.3em] uppercase mb-4">Smiles we have built</p>
                     <h2 className="ba-title text-4xl md:text-5xl lg:text-6xl font-medium text-navy leading-[1.1] mb-8 font-display tracking-tighter uppercase">
-                        Real Smiles.<br />
-                        <span className="italic text-lavender font-light">Real People.</span>
+                        Our Results.<br />
+                        <span className="italic text-lavender font-light">Real Smiles.</span>
                     </h2>
                     <p className="ba-title text-lavender/60 text-sm md:text-base font-medium leading-relaxed max-w-lg mx-auto">
-                        Quality dental work you'd expect anywhere in the world, right here.
+                        A look at some of our favorite cases. Subtle changes, dramatic differences. All crafted to look completely natural.
                     </p>
                 </div>
 
@@ -161,7 +161,7 @@ export default function BeforeAfter() {
 
                 <div className="mt-20 text-center">
                     <button className="inline-flex items-center gap-3 text-navy text-[11px] font-bold uppercase tracking-[0.3em] border-b-2 border-navy/10 pb-2 hover:border-lavender transition-all group overflow-hidden relative">
-                        View Full Case Study Library 
+                        Browse the Case Library 
                         <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2 text-lavender" />
                     </button>
                 </div>

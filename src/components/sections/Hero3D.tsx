@@ -121,7 +121,7 @@ export default function Hero3D() {
     }, [])
 
     return (
-        <section ref={containerRef} className="relative h-screen min-h-[800px] w-full bg-[#FAFAFC] overflow-hidden flex flex-col items-center justify-center pt-32">
+        <section ref={containerRef} className="relative h-screen min-h-[800px] w-full bg-transparent overflow-hidden flex flex-col items-center justify-center pt-32">
             {/* Ambient Animated Splashes of Color */}
             <div className="absolute top-[-10%] right-[-10%] w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] bg-lavender/15 rounded-full mix-blend-multiply filter blur-[120px] animate-float pointer-events-none" />
             <div className="absolute bottom-[-10%] left-[-10%] w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] bg-navy/10 rounded-full mix-blend-multiply filter blur-[100px] animate-float pointer-events-none" style={{ animationDelay: '2s' }} />
@@ -153,7 +153,7 @@ export default function Hero3D() {
             {/* UI Content Layer */}
             <div className="relative z-10 w-full max-w-7xl mx-auto px-6 text-center pointer-events-none">
                 <div ref={subRef} className="mb-8 pointer-events-auto">
-                    <p className="text-lavender/60 text-[10px] font-bold uppercase tracking-[0.6em] mb-4">World-class care. Right here.</p>
+                    <p className="text-lavender/60 text-[10px] font-bold uppercase tracking-[0.6em] mb-4">A new standard in dental artistry</p>
                     <div className="h-[1px] w-12 bg-lavender/30 mx-auto" />
                 </div>
 
@@ -167,17 +167,17 @@ export default function Hero3D() {
 
                 <div ref={ctaRef} className="flex flex-col items-center gap-12 pointer-events-auto">
                     <p className="max-w-md text-navy/60 text-sm md:text-lg font-medium leading-relaxed shadow-sm bg-white/40 backdrop-blur-sm p-4 rounded-3xl border border-white/50">
-                        Professional dental care you can count on.<br />
-                        <span className="text-navy">Quality treatment, delivered with care.</span>
+                        We believe a smile should be as unique as the person wearing it.<br />
+                        <span className="text-navy">Our doctors combine precise surgical care with a natural, aesthetic eye.</span>
                     </p>
                     
                     <div className="flex flex-col sm:flex-row gap-6">
-                        <button className="bg-navy text-white px-10 py-5 rounded-full text-[11px] font-bold uppercase tracking-[0.3em] transition-all hover:scale-105 active:scale-95 shadow-2xl flex items-center justify-center gap-4 group">
-                            Experience Glow
+                        <Link href="/book" className="bg-navy text-white px-10 py-5 rounded-full text-[11px] font-bold uppercase tracking-[0.3em] transition-all hover:scale-105 active:scale-95 shadow-2xl flex items-center justify-center gap-4 group">
+                            Book a Consultation
                             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
-                        </button>
+                        </Link>
                         <button className="bg-white/80 backdrop-blur-md text-navy px-10 py-5 rounded-full text-[11px] font-bold uppercase tracking-[0.3em] border border-navy/10 transition-all hover:bg-white hover:scale-105 active:scale-95 flex items-center justify-center gap-4 shadow-xl">
-                            <Play className="w-4 h-4" /> View Showreel
+                            <Play className="w-4 h-4" /> Watch the Showreel
                         </button>
                     </div>
                 </div>

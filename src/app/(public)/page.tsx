@@ -47,10 +47,50 @@ export default function HomePage() {
                 }
             })
         })
+
+        // Parallax for editorial background names
+        const bgTexts = gsap.utils.toArray('.editorial-bg-text')
+        bgTexts.forEach((text: any) => {
+            gsap.to(text, {
+                yPercent: -45, // Scroll slower/opposite for depth
+                opacity: 0,    // Fade out as it scrolls out of view
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: text,
+                    start: 'top 70%',
+                    end: 'bottom 10%',
+                    scrub: 1.2
+                }
+            })
+        })
     }, [])
 
     return (
-        <div ref={mainRef} className="overflow-x-hidden bg-white text-navy selection:bg-lavender/20">
+        <div ref={mainRef} className="relative overflow-x-hidden bg-transparent text-navy selection:bg-lavender/20">
+            {/* Editorial Background Parallax Watermarks */}
+            <div className="absolute top-[28vh] left-0 w-full overflow-hidden pointer-events-none z-0 select-none">
+                <span className="editorial-bg-text text-[26vw] font-display font-black text-lavender/[0.07] uppercase tracking-[0.1em] block text-center leading-none">
+                    GLOW
+                </span>
+            </div>
+
+            <div className="absolute top-[170vh] left-0 w-full overflow-hidden pointer-events-none z-0 select-none">
+                <span className="editorial-bg-text text-[20vw] font-display font-light italic text-lavender/[0.08] uppercase tracking-[0.05em] block text-center leading-none">
+                    Artistry
+                </span>
+            </div>
+
+            <div className="absolute top-[310vh] left-0 w-full overflow-hidden pointer-events-none z-0 select-none">
+                <span className="editorial-bg-text text-[22vw] font-display font-black text-lavender/[0.07] uppercase tracking-[0.08em] block text-center leading-none">
+                    SMILES
+                </span>
+            </div>
+
+            {/* Ambient Background Glows */}
+            <div className="absolute top-[100vh] left-[-10%] w-[60vw] h-[60vw] max-w-[800px] bg-lavender/10 rounded-full mix-blend-multiply filter blur-[120px] pointer-events-none" />
+            <div className="absolute top-[220vh] right-[-10%] w-[50vw] h-[50vw] max-w-[600px] bg-navy/[0.04] rounded-full mix-blend-multiply filter blur-[100px] pointer-events-none" />
+            <div className="absolute top-[340vh] left-[10%] w-[55vw] h-[55vw] max-w-[700px] bg-lavender/[0.08] rounded-full mix-blend-multiply filter blur-[130px] pointer-events-none" />
+
             {/* ═══════════════════════════════════════════════════════════════
                  HERO — 3D Advanced (Mira Style)
             ═══════════════════════════════════════════════════════════════ */}
@@ -60,45 +100,41 @@ export default function HomePage() {
             {/* ═══════════════════════════════════════════════════════════════
                  CLINICAL RESULTS — The Core Value
             ═══════════════════════════════════════════════════════════════ */}
-            <section className="bg-white border-t border-navy/5">
-                <BeforeAfter />
-            </section>
+            <BeforeAfter />
 
 
             {/* ═══════════════════════════════════════════════════════════════
                  OUR SPECIALISTS — The Human Factor
             ═══════════════════════════════════════════════════════════════ */}
-        <section className="bg-white">
-                <Team />
-            </section>
+            <Team />
 
 
             {/* ═══════════════════════════════════════════════════════════════
                  PATIENT STORIES — Social Proof
             ═══════════════════════════════════════════════════════════════ */}
-            <section className="py-24 md:py-32 bg-surface">
+            <section className="py-24 md:py-32 bg-transparent">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="text-center mb-16">
-                        <p className="text-navy/40 text-[10px] font-bold tracking-[0.4em] uppercase mb-4">Voices of Glow</p>
+                        <p className="text-navy/40 text-[10px] font-bold tracking-[0.4em] uppercase mb-4">Patient Stories</p>
                         <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-navy font-display leading-[1.1] uppercase tracking-tighter">
-                            Patient <span className="text-lavender italic">Perspective.</span>
+                            What Our <span className="text-lavender italic">Patients Say.</span>
                         </h2>
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
                         {[
                             {
-                                text: "I'd been avoiding dentists for six years. Dr. Adeyemi made me feel so calm that I forgot I was even in a clinic. Zero pain, total comfort.",
+                                text: "I hadn't seen a dentist in six years because of anxiety. Dr. Adeyemi and her team made me feel completely safe and comfortable. The treatment was entirely painless.",
                                 author: 'Chioma Eze',
                                 role: 'Verified Patient',
                             },
                             {
-                                text: "Flew in from Port Harcourt specifically for my veneers. The Digital Smile Design preview sold me — seeing my new smile before they even started? Next level.",
+                                text: "The 3D preview of my new smile was incredible. Seeing the exact design before we even started gave me complete confidence. The results are perfect.",
                                 author: 'Emeka Obi',
                                 role: 'Verified Patient',
                             },
                             {
-                                text: "My daughter now asks when her next 'tooth adventure' is. That kind of care you can't fake. Best pediatric team in Nigeria.",
+                                text: "Finding a clinic that knows how to make kids feel comfortable is rare. My daughter actually looks forward to her visits. The care here is exceptional.",
                                 author: 'Hauwa Ibrahim',
                                 role: 'Verified Patient',
                             },
@@ -132,18 +168,18 @@ export default function HomePage() {
             {/* ═══════════════════════════════════════════════════════════════
                  FINAL CTA — Conversion Focused
             ═══════════════════════════════════════════════════════════════ */}
-            <section className="py-24 md:py-32 bg-white relative overflow-hidden">
+            <section className="py-24 md:py-32 bg-transparent relative overflow-hidden">
                 {/* 3D-like background elements */}
-                <div className="absolute top-0 right-0 w-1/3 h-full bg-surface skew-x-12 translate-x-1/2" />
+                <div className="absolute top-0 right-0 w-1/3 h-full bg-navy/[0.02] skew-x-12 translate-x-1/2" />
                 
                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                     <div className="md:flex items-center justify-between gap-12">
                         <div className="max-w-2xl mb-12 md:mb-0">
                             <h2 className="text-5xl md:text-7xl lg:text-8xl font-medium text-navy mb-8 font-display leading-[1] uppercase tracking-tighter">
-                                Start Your<br /><span className="text-lavender italic">Transformation.</span>
+                                Start Your<br /><span className="text-lavender italic">Journey.</span>
                             </h2>
                             <p className="text-navy/50 text-base md:text-xl leading-relaxed font-medium max-w-lg border-l-2 border-navy/10 pl-8">
-                                Join those who choose the best for their smile. Experience dental care that puts you first.
+                                Book a session with one of our doctors to discuss your goals. We will build a simple, clear plan that fits your life.
                             </p>
                         </div>
                         <div className="flex flex-col gap-6 items-center md:items-start">

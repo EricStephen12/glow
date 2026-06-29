@@ -1,17 +1,55 @@
 'use client'
+import { useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Sparkles, Shield, Heart, Award, ArrowRight, User, CheckCircle, Zap } from 'lucide-react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+
+if (typeof window !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger)
+}
 
 export default function AboutPage() {
+    const mainRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        const bgTexts = gsap.utils.toArray('.editorial-bg-text')
+        bgTexts.forEach((text: any) => {
+            gsap.to(text, {
+                yPercent: -45,
+                opacity: 0,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: text,
+                    start: 'top 70%',
+                    end: 'bottom 10%',
+                    scrub: 1.2
+                }
+            })
+        })
+    }, [])
+
     return (
-        <div className="pt-24 bg-surface selection:bg-lavender/20">
+        <div ref={mainRef} className="relative pt-24 bg-transparent selection:bg-lavender/20">
+            {/* Editorial Background Parallax Watermarks */}
+            <div className="absolute top-[80vh] left-0 w-full overflow-hidden pointer-events-none z-0 select-none">
+                <span className="editorial-bg-text text-[22vw] font-display font-black text-lavender/[0.07] uppercase tracking-[0.1em] block text-center leading-none">
+                    VALUES
+                </span>
+            </div>
+
+            <div className="absolute top-[200vh] left-0 w-full overflow-hidden pointer-events-none z-0 select-none">
+                <span className="editorial-bg-text text-[20vw] font-display font-light italic text-lavender/[0.08] uppercase tracking-[0.05em] block text-center leading-none">
+                    SPECIALISTS
+                </span>
+            </div>
             {/* Hero Section */}
             <section className="relative py-24 md:py-32 bg-navy overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <Image
-                        src="/images/hero-clinic.png"
+                        src="/images/clinic-interior.png"
                         alt="Glow Dental Clinic Interior"
                         fill
                         className="object-cover opacity-20 filter grayscale"
@@ -27,10 +65,10 @@ export default function AboutPage() {
                     >
                         <p className="text-lavender text-[10px] font-bold tracking-[0.4em] uppercase mb-6">About Glow Dental</p>
                         <h1 className="text-5xl md:text-7xl font-medium text-white mb-8 font-display italic">
-                            Redefining Dental <span className="text-lavender">Care</span> in Nigeria
+                            A New Standard for <span className="text-lavender">Dental Care</span> in Lagos
                         </h1>
-                        <p className="text-white/40 max-w-2xl mx-auto text-xl leading-relaxed font-medium">
-                            We built Glow Dental to prove that world-class dentistry doesn&apos;t require a flight abroad — it just requires the right team, the right technology, and an obsession with doing things properly.
+                        <p className="text-white/60 max-w-2xl mx-auto text-xl leading-relaxed font-medium">
+                            We started Glow to bring high clinical standards and honest, patient-first care to Lagos. No shortcuts, no compromises.
                         </p>
                     </motion.div>
                 </div>
@@ -58,12 +96,12 @@ export default function AboutPage() {
                             viewport={{ once: true }}
                         >
                             <p className="text-lavender text-xs font-bold tracking-[0.3em] uppercase mb-6">Our Philosophy</p>
-                            <h2 className="text-4xl md:text-5xl font-medium text-navy mb-8 font-display">The Standard <span className="text-lavender italic">Should Be</span> Higher</h2>
+                            <h2 className="text-4xl md:text-5xl font-medium text-navy mb-8 font-display">Focusing on <span className="text-lavender italic">the Details</span></h2>
                             <p className="text-navy/60 text-lg mb-6 leading-relaxed font-medium">
-                                Most dental clinics in Nigeria operate on volume. We operate on precision. Every procedure, from a routine cleaning to a full-mouth restoration, gets the same meticulous attention.
+                                Many clinics prioritize volume. We focus entirely on precision. Whether it is a routine cleaning or a complex restoration, we give every patient our full, undivided attention.
                             </p>
                             <p className="text-navy/40 text-base mb-10 leading-relaxed">
-                                Our team trains internationally, invests in the latest diagnostic technology, and builds treatment plans that respect both your time and your goals. That approach has earned the trust of over 10,000 patients across Nigeria.
+                                Our doctors are trained to work slowly and carefully, using modern diagnostics to plan treatments that protect your long-term health. We believe this is simply how dentistry should be done.
                             </p>
                             <div className="grid grid-cols-2 gap-8 mb-12">
                                 <div>
@@ -129,7 +167,7 @@ export default function AboutPage() {
             </section>
 
             {/* Team Section */}
-            <section className="py-24 md:py-32 bg-white">
+            <section className="py-24 md:py-32 bg-transparent">
                 <div className="max-w-7xl mx-auto px-6 text-center mb-20">
                     <p className="text-lavender text-[10px] font-bold tracking-[0.4em] uppercase mb-4">Leadership</p>
                     <h2 className="text-4xl md:text-5xl font-medium text-navy font-display">Our <span className="text-lavender italic">Specialists</span></h2>
@@ -139,12 +177,12 @@ export default function AboutPage() {
                         {
                             name: 'Dr. Sarah Adeyemi',
                             role: 'Clinical Director & Aesthetic Lead',
-                            specialty: 'Fellow of the International Congress of Oral Implantologists. 12+ years specializing in Digital Smile Design, porcelain veneers, and full-mouth aesthetic rehabilitation.'
+                            specialty: '12+ years of experience in cosmetic dentistry. Specialist in custom porcelain veneers and aesthetic smile design.'
                         },
                         {
                             name: 'Dr. Marcus Okafor',
                             role: 'Lead Oral Surgeon & Implantologist',
-                            specialty: 'Former LUTH residency. Expert in computer-guided implant surgery with 2,000+ successful placements. Focused on complex surgical restorations and bone grafting.'
+                            specialty: 'Specialist oral surgeon. Focuses on computer-guided dental implants and complex reconstructive surgery.'
                         },
                     ].map((m, i) => (
                         <motion.div
@@ -153,12 +191,15 @@ export default function AboutPage() {
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ delay: i * 0.1 }}
-                            className="bg-surface p-12 text-center group rounded-[48px] border border-navy/5 hover:shadow-xl hover:shadow-lavender/5 transition-all duration-300"
+                            className="bg-white/80 backdrop-blur-md p-12 text-center group rounded-[48px] border border-navy/5 hover:shadow-xl hover:shadow-lavender/5 transition-all duration-300"
                         >
-                            <div className="w-32 h-32 rounded-full bg-navy/5 mx-auto mb-8 flex items-center justify-center overflow-hidden border-2 border-lavender/20 p-2">
-                                <div className="w-full h-full rounded-full bg-navy/10 flex items-center justify-center">
-                                    <User className="w-12 h-12 text-navy/20" />
-                                </div>
+                            <div className="w-32 h-32 rounded-full bg-navy/5 mx-auto mb-8 flex items-center justify-center overflow-hidden border-2 border-lavender/20 relative">
+                                <Image
+                                    src={i === 0 ? '/images/doctor-sarah.png' : '/images/doctor-marcus.png'}
+                                    alt={m.name}
+                                    fill
+                                    className="object-cover"
+                                />
                             </div>
                             <h3 className="text-2xl font-bold text-navy mb-2 group-hover:text-lavender transition-colors">{m.name}</h3>
                             <p className="text-lavender text-[10px] font-bold uppercase tracking-[0.2em] mb-6">{m.role}</p>

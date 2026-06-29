@@ -97,17 +97,17 @@ export default function Features() {
     }, [])
 
     return (
-        <section ref={sectionRef} className="py-24 md:py-40 bg-surface relative overflow-hidden border-t border-navy/5">
+        <section ref={sectionRef} className="py-24 md:py-40 bg-transparent relative overflow-hidden border-t border-navy/5">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="grid lg:grid-cols-2 gap-20 lg:gap-32 items-center">
                     <div className="feature-content">
-                        <p className="feature-text text-lavender text-[10px] font-bold tracking-[0.4em] uppercase mb-6">Uncompromising Global Quality</p>
+                        <p className="feature-text text-lavender text-[10px] font-bold tracking-[0.4em] uppercase mb-6">Why Patients Trust Us</p>
                         <h2 className="feature-text text-4xl md:text-5xl lg:text-7xl font-medium text-navy leading-[1.05] tracking-tighter mb-10 font-display uppercase">
-                            Why 10,000+ Nigerians<br />
-                            <span className="italic font-light text-lavender">Choose Glow.</span>
+                            Dental Care,<br />
+                            <span className="italic font-light text-lavender">Built Around You.</span>
                         </h2>
                         <p className="feature-text text-navy/40 text-sm md:text-lg leading-relaxed mb-16 max-w-md font-medium">
-                            We deliver world-class dental care in Nigeria. Equipped with international medical technology and uncompromising sterilization protocols.
+                            We make visits easy, painless, and completely transparent. Here is how we do it.
                         </p>
 
                         <div className="feature-grid grid sm:grid-cols-2 gap-6">

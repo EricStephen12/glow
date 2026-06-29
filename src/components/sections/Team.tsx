@@ -11,14 +11,14 @@ const TEAM = [
         name: 'Dr. Sarah Adeyemi',
         role: 'Clinical Director',
         specialty: 'Smile Design',
-        image: '/images/black-woman-hero.png',
+        image: '/images/doctor-sarah.png',
         bio: '12+ years in aesthetic dentistry. Fellow of the ICOI. Expert in international Digital Smile Design protocols.'
     },
     {
         name: 'Dr. Marcus Okafor',
         role: 'Lead Oral Surgeon',
         specialty: 'Implantology',
-        image: '/images/hero-clinic.png',
+        image: '/images/doctor-marcus.png',
         bio: 'Specialist in guided implant surgery with 2,000+ successful cases. Internationally trained surgical expert.'
     }
 ]
@@ -85,18 +85,18 @@ export default function Team() {
     }, [])
 
     return (
-        <section ref={sectionRef} className="py-24 md:py-32 bg-surface border-y border-navy/5 overflow-hidden">
+        <section ref={sectionRef} className="py-24 md:py-32 bg-transparent border-y border-navy/5 overflow-hidden">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="team-content flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
                     <div className="max-w-xl">
-                        <p className="team-header text-lavender text-[10px] font-bold tracking-[0.4em] uppercase mb-4">Meet Our Doctors</p>
+                        <p className="team-header text-lavender text-[10px] font-bold tracking-[0.4em] uppercase mb-4">Meet the Doctors</p>
                         <h2 className="team-header text-4xl md:text-5xl lg:text-6xl font-medium text-navy leading-[1.05] tracking-tighter uppercase font-display">
-                            Expert Doctors.<br />
-                            <span className="italic font-light text-lavender">Personal Care.</span>
+                            The Clinical Team.<br />
+                            <span className="italic font-light text-lavender">Specialized Care.</span>
                         </h2>
                     </div>
                     <p className="team-header text-lavender/60 text-sm md:text-base max-w-xs leading-relaxed font-medium">
-                        We bring top-tier training to every patient we see.
+                        Led by specialists with international training, our clinic brings together surgical skill and cosmetic experience.
                     </p>
                 </div>
 
