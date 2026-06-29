@@ -61,13 +61,13 @@ export default function ServicesPage() {
         <div ref={mainRef} className="relative pt-24 bg-transparent selection:bg-lavender/20">
             {/* Editorial Background Parallax Watermarks */}
             <div className="absolute top-[75vh] left-0 w-full overflow-hidden pointer-events-none z-0 select-none">
-                <span className="editorial-bg-text text-[22vw] font-display font-black text-lavender/[0.07] uppercase tracking-[0.1em] block text-center leading-none">
+                <span className="editorial-bg-text text-[22vw] font-display font-black text-lavender/[0.16] uppercase tracking-[0.1em] block text-center leading-none">
                     CLINICAL
                 </span>
             </div>
 
             <div className="absolute top-[160vh] left-0 w-full overflow-hidden pointer-events-none z-0 select-none">
-                <span className="editorial-bg-text text-[18vw] font-display font-light italic text-lavender/[0.08] uppercase tracking-[0.05em] block text-center leading-none">
+                <span className="editorial-bg-text text-[18vw] font-display font-light italic text-lavender/[0.18] uppercase tracking-[0.05em] block text-center leading-none">
                     Technology
                 </span>
             </div>
